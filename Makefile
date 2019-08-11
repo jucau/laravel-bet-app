@@ -35,7 +35,7 @@ stan:
 	php artisan code:analyse
 
 metrics:
-	./vendor/bin/phpmetrics --report-html=tests/phpmetrics ./
+	./vendor/bin/phpmetrics --report-html=tests/quality/phpmetrics ./
 
 secucheck:
 	php security-checker.phar security:check composer.lock
