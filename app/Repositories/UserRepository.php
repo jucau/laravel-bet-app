@@ -25,4 +25,13 @@ class UserRepository
     {
         return $this->model->create($inputs);
     }
+
+    public function update(User $user, array $inputs)
+    {
+        $user->fill($inputs);
+
+        $user->save();
+
+        return $user;
+    }
 }

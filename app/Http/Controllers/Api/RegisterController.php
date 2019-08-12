@@ -26,7 +26,7 @@ class RegisterController extends Controller
      * @param Request $request
      * @return mixed
      */
-    function store(Request $request)
+    public function store(Request $request)
     {
         $validation = validator($request->only('username', 'password', 'client_id', 'client_secret'), [
             'username' => 'required|string|email|max:255|unique:users,email',
@@ -43,8 +43,10 @@ class RegisterController extends Controller
         ]);
 
         if ($validation->fails()) {
+            /** @var string $errors */
+            $errors = $validation->errors()->all();
             throw (new ValidationException($validation))
-                ->errorBag($validation->errors()->all());
+                ->errorBag($errors);
         }
 
         $this->userRepository->create([

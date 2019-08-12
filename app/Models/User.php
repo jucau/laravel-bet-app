@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -41,5 +42,15 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarAttribute()
+    {
+        $avatarPath = 'avatars/'. $this->id .'.jpg';
+
+        return Storage::exists($avatarPath) ? Storage::url($avatarPath) : '';
     }
 }

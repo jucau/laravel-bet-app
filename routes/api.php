@@ -15,6 +15,11 @@ use Illuminate\Http\Request;
 
 Route::post('register', 'RegisterController@store')->name('register');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth:api'], function () {
+
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('me', 'UserController@show')->name('me');
+        Route::put('me', 'UserController@update')->name('me.update');
+        Route::post('me/avatar', 'UserAvatarController@store')->name('me.avatar.store');
+    });
 });
