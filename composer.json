@@ -23,7 +23,9 @@
         "nunomaduro/collision": "^3.0",
         "nunomaduro/larastan": "^0.3.18",
         "phpunit/phpunit": "^7.5",
-        "squizlabs/php_codesniffer": "3.*"
+        "psalm/plugin-laravel": "^1.0",
+        "squizlabs/php_codesniffer": "3.*",
+        "vimeo/psalm": "^3.8"
     },
     "config": {
         "optimize-autoloader": true,
