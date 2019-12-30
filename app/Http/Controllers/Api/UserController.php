@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class UserController extends Controller
 {
@@ -19,7 +20,7 @@ class UserController extends Controller
 
     public function show()
     {
-        return UserResource::make(auth()->user())
+        return UserResource::make(Auth::user())
             ->response()
             ->setStatusCode(config('httpstatus.success'));
     }
