@@ -18,6 +18,9 @@ jobs:
     - name: Code Sniffer
       run: make cssee
     - name: Create Database
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
       run: |
         mkdir -p database
         touch database/database.sqlite
