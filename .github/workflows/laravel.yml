@@ -23,4 +23,5 @@ jobs:
         DB_DATABASE: database/database.sqlite
       run: | 
         php artisan migrate
+        php artisan passport:install
         vendor/bin/phpunit
