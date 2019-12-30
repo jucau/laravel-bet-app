@@ -34,6 +34,9 @@ csfix:
 stan:
 	php artisan code:analyse
 
+psalm:
+	 ./vendor/bin/psalm
+
 metrics:
 	./vendor/bin/phpmetrics --report-html=tests/quality/phpmetrics ./
 
