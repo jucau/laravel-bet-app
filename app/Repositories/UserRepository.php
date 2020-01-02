@@ -6,6 +6,7 @@ use App\Models\User;
 
 class UserRepository
 {
+    /** @var User */
     protected $model;
 
     /**
@@ -18,7 +19,7 @@ class UserRepository
     }
 
     /**
-     * @param array $inputs
+     * @param array<string, string> $inputs
      * @return mixed
      */
     public function create(array $inputs)
@@ -26,6 +27,11 @@ class UserRepository
         return $this->model->create($inputs);
     }
 
+    /**
+     * @param User $user
+     * @param array<string, string> $inputs
+     * @return User
+     */
     public function update(User $user, array $inputs)
     {
         $user->fill($inputs);

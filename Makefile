@@ -32,7 +32,7 @@ csfix:
 	./vendor/bin/phpcbf -w
 
 stan:
-	php artisan code:analyse
+	./vendor/bin/phpstan analyse
 
 psalm:
 	 ./vendor/bin/psalm

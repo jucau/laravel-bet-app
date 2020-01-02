@@ -7,10 +7,11 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    /** @var UserRepository */
     protected $userRepository;
 
     public function __construct(UserRepository $userRepository)
@@ -18,6 +19,9 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show()
     {
         return UserResource::make(Auth::user())

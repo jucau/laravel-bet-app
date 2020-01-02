@@ -15,9 +15,13 @@ class UserAvatarController extends Controller
     public function store(UserAvatarStoreRequest $request)
     {
         $user = $request->user();
+
+        /** @var \Illuminate\Http\UploadedFile|null $file */
         $file = $request->file('avatar');
 
-        $file->storeAs('avatars', $user->id .'.'. $file->getClientOriginalExtension());
+        if ($file) {
+            $file->storeAs('avatars', $user->id .'.'. $file->getClientOriginalExtension());
+        }
 
         return UserResource::make($user)
             ->response()

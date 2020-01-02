@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Laravel\Passport\Client;
 
 class RegisterController extends Controller
 {
+    /** @var UserRepository */
     protected $userRepository;
 
     /**
@@ -28,6 +30,7 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
+        /** @var  \Illuminate\Contracts\Validation\Validator $validation */
         $validation = validator($request->only('username', 'password', 'client_id', 'client_secret'), [
             'username' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:6',
@@ -54,18 +57,19 @@ class RegisterController extends Controller
             'password'      => $request->input('password'),
         ]);
 
+        /** @var Client $client */
         $client = Client::where('password_client', 1)->first();
 
         $request->request->add([
             'grant_type'    => 'password',
-            'client_id'     => $client->id,
-            'client_secret' => $client->secret,
+            'client_id'     => $client->getAttribute('id'),
+            'client_secret' => $client->getAttribute('secret'),
             'username'      => $request->input('username'),
             'password'      => $request->input('password'),
         ]);
 
         $proxy = Request::create(route('passport.token', [], false), 'POST');
 
-        return \Route::dispatch($proxy);
+        return Route::dispatch($proxy);
     }
 }
